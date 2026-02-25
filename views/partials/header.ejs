@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToDo List - TipsCode</title>
+    <style>
+        html {
+            background-color: #E4E9FD;
+            background-image: -webkit-linear-gradient(65deg, #A683E3 50%, #E4E9FD 50%);
+            min-height: 1000px;
+            font-family: 'helvetica neue';
+        }
+        #heading {
+            background-color: #A683E3;
+            text-align: center;
+            max-width: 400px;
+            margin: 50px auto;
+            border-radius: 10px;
+            box-shadow: 5px 5px 15px -5px rgba(0, 0, 0, 0.3);
+            padding: 10px 0;
+        }
+        h1 { color: #fff; padding: 10px; font-size: 1.5rem; text-transform: capitalize; margin: 0; }
+        .box { max-width: 400px; margin: 20px auto; background: white; border-radius: 5px; box-shadow: 5px 5px 15px -5px rgba(0, 0, 0, 0.3); }
+        .item { min-height: 70px; display: flex; align-items: center; border-bottom: 1px solid #f1f1f1; }
+        .item:last-child { border-bottom: 0; }
+        input:checked + p { text-decoration: line-through; text-decoration-color: #A683E3; color: #bdc3c7; }
+        input[type="checkbox"] { margin: 20px; cursor: pointer; }
+        p { margin: 0; padding: 20px; font-size: 20px; font-weight: 200; color: #00204a; flex: 1; }
+        form.item-form { width: 100%; display: flex; align-items: center; }
+        .add-form { text-align: center; padding: 0 20px; display: flex; justify-content: space-between; align-items: center; }
+        button {
+            min-height: 50px; width: 50px; border-radius: 50%; border: none;
+            background-color: #A683E3; color: #fff; font-size: 30px; cursor: pointer; 
+            transition: 0.2s; display: flex; align-items: center; justify-content: center;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+        }
+        button:hover { transform: scale(1.1); background-color: #8e6bc2; }
+        input[type="text"] { text-align: left; height: 60px; border: none; background: transparent; font-size: 20px; font-weight: 200; width: 70%; }
+        input[type="text"]:focus { outline: none; border-bottom: 2px solid #A683E3; }
+        ::placeholder { color: #bdc3c7; }
+        footer { text-align: center; color: #fff; font-weight: bold; margin-top: 20px; padding-bottom: 20px; }
+    </style>
+</head>
+<body>
