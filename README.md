@@ -18,7 +18,7 @@ Ambiente: Desenvolvido e testado em Windows 11.
 
 Para que as pessoas paguem pelo seu serviço, você deve postar o link deste projeto com uma mensagem focada em dor e solução. Aqui está um roteiro para você postar:
 
-Exemplo de Post para o LinkedIn:
+
 "Sua empresa perde prazos por falta de organização? 📉
 
 Desenvolvi um ecossistema de Agenda de Tarefa Empresarial que vai além de uma simples lista. É um sistema Full Stack (Node.js + MySQL) focado em quem precisa de processos claros e agilidade.
