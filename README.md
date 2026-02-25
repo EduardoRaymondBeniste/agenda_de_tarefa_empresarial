@@ -16,7 +16,7 @@ Banco de Dados: MySQL via WampServer (Confiabilidade e integridade dos dados).
 
 Ambiente: Desenvolvido e testado em Windows 11.
 
-Para que as pessoas paguem pelo seu serviço, você deve postar o link deste projeto com uma mensagem focada em dor e solução. Aqui está um roteiro para você postar:
+
 
 
 "Sua empresa perde prazos por falta de organização? 📉
