@@ -32,4 +32,4 @@ Se você busca profissionalizar a gestão do seu negócio com tecnologia sob med
 
 📞 Contato: (21) 99733-2750
 ✉️ E-mail: eduardoraymondbeniste999@gmail.com
-🔗 Projeto no GitHub: [Link do seu repositório aqui]"
+🔗 Projeto no GitHub: [https://github.com/EduardoRaymondBeniste/agenda_de_tarefa_empresarial/tree/main]"
