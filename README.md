@@ -16,7 +16,6 @@ Banco de Dados: MySQL via WampServer (Confiabilidade e integridade dos dados).
 
 Ambiente: Desenvolvido e testado em Windows 11.
 
-🚀 Como convencer clientes no LinkedIn (Estratégia)
 Para que as pessoas paguem pelo seu serviço, você deve postar o link deste projeto com uma mensagem focada em dor e solução. Aqui está um roteiro para você postar:
 
 Exemplo de Post para o LinkedIn:
