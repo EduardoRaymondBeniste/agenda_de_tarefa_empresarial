@@ -1,10 +1,16 @@
 const express = require('express');
 const db = require('./database'); 
+const path = require('path'); // Adicionado para gerenciar caminhos
 const app = express();
 
+// Configurações
 app.set('view engine', 'ejs');
+// Ajuste importante: garante que o Express ache a pasta 'views' no servidor
+app.set('views', path.join(__dirname, 'views')); 
+
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static("public"));
+// Ajuste importante: garante que o Express ache a pasta 'public'
+app.use(express.static(path.join(__dirname, "public")));
 
 // --- ROTA HOME (Lista Pessoal) ---
 app.get('/', (req, res) => {
@@ -14,10 +20,11 @@ app.get('/', (req, res) => {
 
     db.query('SELECT * FROM items WHERE list = ?', ['Pessoal'], (err, results) => {
         if (err) {
-            console.error(err);
-            return res.status(500).send("Erro ao buscar tarefas.");
+            console.error("Erro no DB:", err);
+            // Em vez de travar, renderiza a página com lista vazia se o banco falhar
+            return res.render('list', { kindOfDay: day, newListItems: [] });
         }
-        res.render('list', { kindOfDay: day, newListItems: results });
+        res.render('list', { kindOfDay: day, newListItems: results || [] });
     });
 });
 
@@ -26,11 +33,11 @@ app.get('/trabalho', (req, res) => {
     db.query('SELECT * FROM items WHERE list = ?', ['Trabalho'], (err, results) => {
         if (err) {
             console.error(err);
-            return res.status(500).send("Erro ao buscar tarefas de trabalho.");
+            return res.render('list', { kindOfDay: "Lista de Trabalho", newListItems: [] });
         }
         res.render('list', { 
             kindOfDay: "Lista de Trabalho", 
-            newListItems: results 
+            newListItems: results || []
         });
     });
 });
@@ -39,8 +46,6 @@ app.get('/trabalho', (req, res) => {
 app.post('/', (req, res) => {
     const itemName = req.body.newItem;
     const listName = req.body.list; 
-
-    // Lógica para definir a categoria
     let category = (listName === "Lista de Trabalho") ? "Trabalho" : "Pessoal";
 
     const sql = 'INSERT INTO items (name, list) VALUES (?, ?)';
@@ -49,12 +54,7 @@ app.post('/', (req, res) => {
             console.error(err);
             return res.status(500).send("Erro ao salvar tarefa.");
         }
-        
-        if (category === "Trabalho") {
-            res.redirect('/trabalho');
-        } else {
-            res.redirect('/');
-        }
+        res.redirect(category === "Trabalho" ? '/trabalho' : '/');
     });
 });
 
@@ -69,15 +69,13 @@ app.post('/delete', (req, res) => {
             console.error(err);
             return res.status(500).send("Erro ao excluir tarefa.");
         }
-
-        if (listName === "Lista de Trabalho") {
-            res.redirect('/trabalho');
-        } else {
-            res.redirect('/');
-        }
+        res.redirect(listName === "Lista de Trabalho" ? '/trabalho' : '/');
     });
 });
 
-app.listen(3000, () => {
-    console.log("Servidor rodando em http://localhost:3000");
+// AJUSTE DE PORTA: O Back4app define a porta automaticamente.
+// Se process.env.PORT não existir, ele usa a 3000 (local).
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`Servidor rodando na porta ${PORT}`);
 });
