@@ -1,18 +1,38 @@
+const { Pool } = require('pg');
 const mysql = require('mysql2');
 
-const connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: 'root', // Se der erro de senha, tente deixar ''
-    database: 'todolist_db'
-});
+let db;
 
-connection.connect((err) => {
-    if (err) {
-        console.error('ERRO AO CONECTAR: ' + err.message);
-        return;
-    }
-    console.log('Conectado ao MySQL com sucesso!');
-});
+// Se existir a variável DATABASE_URL (Vercel/Neon), ele usa Postgres
+if (process.env.DATABASE_URL) {
+    const pool = new Pool({
+        connectionString: process.env.DATABASE_URL,
+        ssl: { rejectUnauthorized: false } // Obrigatório para o Neon
+    });
 
-module.exports = connection;
+    db = {
+        query: (sql, params, callback) => {
+            // Converte o "?" do seu código MySQL para o "$1, $2" do Postgres
+            let i = 1;
+            const pgSql = sql.replace(/\?/g, () => `$${i++}`);
+            
+            pool.query(pgSql, params, (err, res) => {
+                if (err) return callback(err);
+                // O Postgres retorna os dados em .rows, o MySQL direto no resultado
+                callback(null, res.rows); 
+            });
+        }
+    };
+    console.log("Conectado ao Neon (Nuvem)");
+} else {
+    // Caso contrário, usa o seu WampServer local (MySQL)
+    db = mysql.createConnection({
+        host: 'localhost',
+        user: 'root',
+        password: 'root',
+        database: 'todolist_db'
+    });
+    console.log("Conectado ao WampServer (Local)");
+}
+
+module.exports = db;
